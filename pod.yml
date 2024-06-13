@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: springboot
+  labels:
+    app: spring_app
+spec:
+  containers:
+  - name: springboot
+    image: vigneshv04/springboot_demo:latest
+    ports:
+    - containerPort: 8080
+    resources:
+      requests:
+        cpu: "1"
+        memory: "2Gi"
+      limits:
+        cpu: "1"
+        memory: "2Gi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring_service
+spec:
+  selector:
+    app: spring_app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
